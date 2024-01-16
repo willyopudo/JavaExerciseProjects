@@ -1,11 +1,9 @@
 package com.demos.collections;
 
-import com.demos.collections.Node;
-
 public class Main {
 	public static void main(String[] args) {
 
-//		SinglyLinkedList linkedList = new SinglyLinkedList(1);
+/*		SinglyLinkedList linkedList = new SinglyLinkedList(1);
 //		linkedList.add(2);
 //		linkedList.add(4);
 //		linkedList.addAfter(2,3);
@@ -13,7 +11,7 @@ public class Main {
 //		//linkedList.deleteFirst();
 //
 //		linkedList.showElements();
-
+*/
 		DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
 
 		doublyLinkedList.addNode(1);
