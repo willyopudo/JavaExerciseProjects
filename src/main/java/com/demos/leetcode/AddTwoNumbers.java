@@ -1,45 +1,43 @@
 package com.demos.leetcode;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        StringBuilder s1 = new StringBuilder();
-        StringBuilder s2 = new StringBuilder();
-        StringBuilder s3 = new StringBuilder();
+        // Initialize a dummy node to simplify the code
+        ListNode sample = new ListNode(0);
+        // Use temp to traverse the result list
+        ListNode tail = sample;
+        int carry = 0;
 
-
-        while(l1 != null){
-            s1.insert(0, l1.val);
-            l1 = l1.next;
-        }
-        while(l2 != null){
-            s2.insert(0, l2.val);
-            l2 = l2.next;
-        }
-        String sumStr = String.valueOf(Integer.parseInt(s1.toString()) + Integer.parseInt( s2.toString()));
-        ListNode sumListNode = new ListNode(Integer.parseInt(String.valueOf(sumStr.charAt(sumStr.length()-1))));
-        for(int i = sumStr.length()-2; i >= 0; i--){
-            ListNode prev;
-            ListNode next =  null;
-            ListNode current =new ListNode(Integer.parseInt(String.valueOf(sumStr.charAt(i))));
-
-            if(i > 0)
-                next =new ListNode(Integer.parseInt(String.valueOf(sumStr.charAt(i-1))));
-
-            if (i == sumStr.length() - 2) {
-                prev = sumListNode;
+        // Iterate through the lists and the carry
+        while (l1 != null || l2 != null || carry == 1)
+        {
+            // Calculate the sum of current digits and carry
+            int sum = 0;
+            if (l1 != null)
+            {
+                sum += l1.val;
+                l1 = l1.next;
             }
-            else
-                prev = new ListNode(Integer.parseInt(String.valueOf(sumStr.charAt(i + 1))));
-            prev.next = current;
-            current.next = next;
+            if (l2 != null)
+            {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            sum += carry;
 
+            // Update carry for the next calculation
+            carry = sum / 10;
+
+            // Create a new node with the current digit and add it to the result list
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
         }
-        return sumListNode;
 
-
-        //System.out.println(sum);
+        // Return the result list starting from the next of the dummy node
+        return sample.next;
     }
 }
 
