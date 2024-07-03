@@ -32,9 +32,12 @@ public class Driver {
 //            node = node.next;
 //        }
 //
-        LongestSubString ls = new LongestSubString();
-        System.out.println(ls.lengthOfLongestSubstring("dvdt"));
+//        LongestSubString ls = new LongestSubString();
+//        System.out.println(ls.lengthOfLongestSubstring("dvdt"));
         //String s = "abcabcbbdef";
         //System.out.println(s.substring(0,1));
+
+        ThreeSum threeSum = new ThreeSum();
+        System.out.println(threeSum.threeSum(new int[]{-1,0,1,2,-1,-4,-2,-3,3,0,4}).toString());
     }
 }
