@@ -33,7 +33,7 @@ public class Driver {
 //        }
 //
         LongestSubString ls = new LongestSubString();
-        System.out.println(ls.lengthOfLongestSubstring("dvdf"));
+        System.out.println(ls.lengthOfLongestSubstring("dvdt"));
         //String s = "abcabcbbdef";
         //System.out.println(s.substring(0,1));
     }
