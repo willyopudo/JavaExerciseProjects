@@ -32,6 +32,7 @@ public abstract class Person {
     public abstract String eat();
     public abstract String eat(String food);
 
+    //Concrete methods
     public String breath(int mode){
         if(mode == 1){
             return "Person on synthetic oxygen";
