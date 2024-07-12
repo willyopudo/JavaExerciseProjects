@@ -34,13 +34,16 @@ public class Driver {
 //
 //        LongestSubString ls = new LongestSubString();
 //        System.out.println(ls.lengthOfLongestSubstring("dvdt"));
-        //String s = "abcabcbbdef";
-        //System.out.println(s.substring(0,1));
+        //String s = "cbbd";
+        //System.out.println(s.substring(0,2));
     //-1,0,1,2,-1,-4,-2,-3,3,0,4
         //ThreeSum threeSum = new ThreeSum();
         //System.out.println(threeSum.threeSum(new int[]{-1,0,1,2,-1,-4}).toString());
 
-        MedianOfTwoSortedArrays m = new MedianOfTwoSortedArrays();
-        System.out.println(m.findMedianSortedArrays(new int[]{1, 3, 4}, new int[]{2,5,6}));
+        //MedianOfTwoSortedArrays m = new MedianOfTwoSortedArrays();
+        //System.out.println(m.findMedianSortedArrays(new int[]{1, 3, 4}, new int[]{2,5,6}));
+
+        LongestPalindrome lp = new LongestPalindrome();
+        System.out.println(lp.longestPalindrome("ac"));
     }
 }
