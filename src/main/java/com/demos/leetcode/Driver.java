@@ -43,7 +43,10 @@ public class Driver {
         //MedianOfTwoSortedArrays m = new MedianOfTwoSortedArrays();
         //System.out.println(m.findMedianSortedArrays(new int[]{1, 3, 4}, new int[]{2,5,6}));
 
-        LongestPalindrome lp = new LongestPalindrome();
-        System.out.println(lp.longestPalindrome("ababab"));
+        //LongestPalindrome lp = new LongestPalindrome();
+        //System.out.println(lp.longestPalindrome("ababab"));
+
+        ZigzagConversion zc = new ZigzagConversion();
+        System.out.println(zc.convert("PAYPALISHIRING", 3));
     }
 }
