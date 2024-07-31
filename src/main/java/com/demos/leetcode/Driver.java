@@ -46,7 +46,9 @@ public class Driver {
         //LongestPalindrome lp = new LongestPalindrome();
         //System.out.println(lp.longestPalindrome("ababab"));
 
-        ZigzagConversion zc = new ZigzagConversion();
-        System.out.println(zc.convert("PAYPALISHIRING", 3));
+        //ZigzagConversion zc = new ZigzagConversion();
+        //System.out.println(zc.convert("PAYPALISHIRING", 3));
+        ReverseInteger ri = new ReverseInteger();
+        System.out.println(ri.reverse(-2147483412));
     }
 }
