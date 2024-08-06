@@ -7,23 +7,22 @@ import java.util.Stack;
 public class BinaryTreeInOrderTraversal {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        return printInorder(root, list);
+    }
+    // Function to print inorder traversal
+    public static List<Integer> printInorder(TreeNode node, List<Integer> list)
+    {
+        if (node == null)
+            return list;
 
-        TreeNode cur = root;
-        while (cur != null || !stack.isEmpty()) {
-            while (cur != null) {
-                stack.push(cur);
-                list.add(cur.val);
-                stack.pop();
-                if (cur.right != null) {
-                    stack.push(cur.right);
-                }
-                if (cur.left != null) {
-                    stack.push(cur.left);
-                }
-                cur = stack.pop();
-            }
-        }
+        // First recur on left subtree
+        printInorder(node.left, list);
+
+        // Now deal with the node
+        list.add(node.val);
+
+        // Then recur on right subtree
+        printInorder(node.right, list);
         return list;
     }
 }
