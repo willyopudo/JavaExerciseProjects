@@ -28,3 +28,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 /target/
+
+/src/main/java/com/kcb/etlmonitor/config.properties
+/src/main/java/com/kcb/etlmonitor/contacts.txt
