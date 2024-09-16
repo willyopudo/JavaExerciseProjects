@@ -33,7 +33,7 @@ public class EtlProgressMonitor {
     // API endpoint
     private static final String API_URL = readConfigValue("sms.gateway.url"); // Replace with your API endpoint
 
-    private static final String CONFIG_FILE_PATH = "config.properties"; //Replace with your properties file path
+    private static final String CONFIG_FILE_PATH = "C:\\Users\\ken206312\\IdeaProjects\\JavaExerciseProjects\\src\\main\\java\\com\\kcb\\etlmonitor\\config.properties"; //Replace with your properties file path
 
     private static final Logger logger = Logger.getLogger(EtlProgressMonitor.class.getName());
 
@@ -96,8 +96,9 @@ public class EtlProgressMonitor {
 
                 }
                 //mock
-                //lastRunStatusCount.put("NULL", 0);
-                //lastRunStatusCount.put("Success", 241);
+                //lastRunStatusCount.put("NULL", 239);
+                //lastRunStatusCount.put("Success", 1);
+                //lastRunStatusCount.put("Failed", 1);
                 SimpleDateFormat ft = new SimpleDateFormat ("dd-MM-yyy HH:mm");
                 if(!lastRunStatusCount.isEmpty()) {
 
@@ -105,21 +106,19 @@ public class EtlProgressMonitor {
                     int totalFailed = lastRunStatusCount.getOrDefault("Failed", 0);
                     int totalNull = lastRunStatusCount.getOrDefault("NULL", 0);
 
-                    if(totalNull <= 241 && isRunCompleteVal.equals("0")) {
-                        //Send SMS only when total success is more than 0
-                        if(totalSuccess > 0) {
-                            // Call the SMS REST API for each mobile number
-                            for (String line : lines) {
-                                Date dNow = new Date();
-                                String failedCount = totalFailed > 0 ? "\\nFailed: " + totalFailed : "";
-                                callRestApi(line, "Monitoring alert: EDWH Reports status\\nCurrent Count: " + totalSuccess + failedCount + "\\nTime: " + ft.format(dNow));
-                            }
+                    if(totalSuccess + totalFailed > 0 && isRunCompleteVal.equals("0")) {
+                        // Call the SMS REST API for each mobile number
+                        for (String line : lines) {
+                            Date dNow = new Date();
+                            String failedCount = totalFailed > 0 ? "\\nFailed: " + totalFailed : "";
+                            //callRestApi(line, "Monitoring alert: EDWH Reports status\\nCurrent Count: " + totalSuccess + failedCount + "\\nTime: " + ft.format(dNow));
                         }
+
                     }
-                    if(totalSuccess + totalFailed == 241 && !isRunCompleteVal.equals("1")) {
+                    if(totalNull == 0 && !isRunCompleteVal.equals("1")) {
                         writeConfigValue(key, "1");
                     }
-                    if(totalNull == 241 && !isRunCompleteVal.equals("0")) {
+                    if(totalSuccess + totalFailed == 0 && !isRunCompleteVal.equals("0")) {
                         writeConfigValue(key, "0");
                     }
 
