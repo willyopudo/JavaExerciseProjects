@@ -66,7 +66,9 @@ public class EtlProgressMonitor {
         List<String> lines = readFileToStringList(contactsFilePath);
         String key = "run.iscomplete";
         String isRunCompleteVal = readConfigValue(key) != null ? readConfigValue(key) : "0";
-        System.out.println("Read value: " + isRunCompleteVal);
+        String alertAdminCount = readConfigValue("alert.admin.counter") != null ? readConfigValue("alert.admin.counter") : "0";
+        String alertAdminPhone = readConfigValue("alert.admin.phone") != null ? readConfigValue("alert.admin.phone") : "254000000000";
+        //System.out.println("Read value: " + isRunCompleteVal);
 
         Map<String, Integer> lastRunStatusCount = new HashMap<String, Integer>();
         lastRunStatusCount.put("NULL", 0);
@@ -76,7 +78,7 @@ public class EtlProgressMonitor {
 
         // Initialize database connection
         try (Connection connection = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD)) {
-            logMessage("Connected to the database.", Level.INFO);
+            //logMessage("Connected to the database.", Level.INFO);
 
             // Query the Oracle table
             String query = "SELECT COUNT(*) AS total_count, nvl(LAST_RUN_STATUS, 'NULL') AS last_run_status FROM STAGING.EC_MASTER_REPORTS GROUP BY LAST_RUN_STATUS"; // Replace with your query
@@ -84,20 +86,24 @@ public class EtlProgressMonitor {
                 //statement.setString(1, "some_value"); // Replace with your condition value
 
                 ResultSet resultSet = statement.executeQuery();
-                logMessage("Query executed successfully.", Level.INFO);
+                //logMessage("Query executed successfully.", Level.INFO);
 
                 // Process results
+                StringBuilder sb = new StringBuilder();
                 while (resultSet.next()) {
                     String total = resultSet.getString("total_count");
                     String runStatus = resultSet.getString("last_run_status");
-                    logMessage(runStatus + " : " + total, Level.INFO);
+
+                    String logEntry = runStatus + " : " + total + ", ";
+                    sb.append(logEntry);
 
                     lastRunStatusCount.put(runStatus, Integer.parseInt(total));
 
                 }
+                logMessage(sb.substring(0, sb.toString().length()-2), Level.INFO);
                 //mock
-                //lastRunStatusCount.put("NULL", 239);
-                //lastRunStatusCount.put("Success", 1);
+                lastRunStatusCount.put("NULL", 239);
+                lastRunStatusCount.put("Success", 2);
                 //lastRunStatusCount.put("Failed", 1);
                 SimpleDateFormat ft = new SimpleDateFormat ("dd-MM-yyy HH:mm");
                 if(!lastRunStatusCount.isEmpty()) {
@@ -111,15 +117,23 @@ public class EtlProgressMonitor {
                         for (String line : lines) {
                             Date dNow = new Date();
                             String failedCount = totalFailed > 0 ? "\\nFailed: " + totalFailed : "";
+                            //Send alert to admin in a wider time interval using admin phone and alertAdminCounter settings in config file
+                            if(line.equals(alertAdminPhone) && Integer.parseInt(alertAdminCount) % 10 != 0)
+                                continue;
+                            System.out.println("SMS alert sent to " + line);
                             //callRestApi(line, "Monitoring alert: EDWH Reports status\\nCurrent Count: " + totalSuccess + failedCount + "\\nTime: " + ft.format(dNow));
                         }
+                        //Increment admin alter counter
+                        writeConfigValue("alert.admin.counter", String.valueOf(Integer.parseInt(alertAdminCount) + 1));
 
                     }
                     if(totalNull == 0 && !isRunCompleteVal.equals("1")) {
                         writeConfigValue(key, "1");
                     }
                     if(totalSuccess + totalFailed == 0 && !isRunCompleteVal.equals("0")) {
+                        //Reset config values
                         writeConfigValue(key, "0");
+                        writeConfigValue("alert.admin.counter", "0");
                     }
 
                 }
@@ -176,7 +190,7 @@ public class EtlProgressMonitor {
             HttpResponse<String> response;
             try (HttpClient client = HttpClient.newBuilder().sslContext(sslContext).build()) {
 
-                String jsonReq = "{\"from\":\"KCB\", \"to\":\"" + recipient + "\", \"message\":\"" + messageData + "\"}";
+                String jsonReq = "{\"from\":\"KCB M-PESA\", \"to\":\"" + recipient + "\", \"message\":\"" + messageData + "\"}";
 
                 // Create the HTTP request
                 HttpRequest request = HttpRequest.newBuilder()
