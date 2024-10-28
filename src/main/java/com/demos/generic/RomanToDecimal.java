@@ -6,7 +6,7 @@ import java.util.Map;
 public class RomanToDecimal {
     public static void main(String[] args) {
 
-        String inputRoman= "LXVII";
+        String inputRoman= "IX";
         System.out.println("The Integer value of given Roman number is: " + convertRomanToDecimal(inputRoman));
     }
 
