@@ -50,8 +50,8 @@ public class ExamStatistics {
         double meanScore = totalMarks / (numberOfEntries * 1.0);
 
         //Print out stats to console
-        System.out.println("The average the first subject is " + subject1Avg);
-        System.out.println("The average the second subject is " + subject2Avg);
+        System.out.println("The average of the first subject is " + subject1Avg);
+        System.out.println("The average of the second subject is " + subject2Avg);
         System.out.println("The highest mark for subject 1 is " + subject1HighestMark);
         System.out.println("The lowest mark for subject 1 is " + subject1LowestMark);
         System.out.println("The mean score for all the subjects is " + meanScore);
