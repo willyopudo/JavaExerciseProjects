@@ -1,6 +1,7 @@
 package com.demos.leetcode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /*
 Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
@@ -80,9 +81,88 @@ public class ReverseNodesInKGroup {
         return map.get(0);
     }
 
-    /*TODO
-    Come up with a solution which does not need to store the nodes in a hashmap
+    /*
+    Solution 2 : Reverse node pointers for K group if current node count is divisible by k (1ms)
     */
+    public ListNode reverseKGroupV2(ListNode head, int k) {
+        //validate input linked list
+        if (head == null || head.next == null || k == 1) return head;
+
+        //Initialize variables
+        ListNode current = head, prev = head, next = head.next, ans = head, tail = head;
+        //Counter for number of nodes
+        int count = 1;
+
+        //Loop through all nodes
+        while (current != null) {
+            //Save current node in a variable for later use
+            ListNode thisNode = current;
+
+            //Update current node for our while loop
+            current = current.next;
+
+            //Check if the counter is divisible by k
+            if(count % k == 0){
+                //For the first K group override next of the head node to current node in our while loop i.e thisNode.next
+                if(count == k) head.next = current;
+                //Else update variables used to process the  next K group
+                else{
+                    tail.next = thisNode;
+                    prev = next;
+                    next = next.next;
+
+                }
+                //Loop k-1 times
+                for(int i = 1; i < k; i++){
+                    //Save next.next to a temp variable because we want to override it
+                    ListNode temp = next != null ? next.next : null;
+                    //Override next.next with previous node - here is where we do swapping
+                    if(next != null)  next.next = prev;
+
+                    //If we are processing 2nd..nth K group, update value of tail accordingly
+                    if(count > k && i == 1) tail = prev;
+                    //Assign new value to tail. It is the temp node above which was next of next
+                    tail.next = temp;
+
+                    //Update variables for next iteration
+                    prev = next;
+                    next = temp;
+
+                    //Let's check if we are currently processing last node of the 1st K group. It will be our head node to return
+                    if(count == k && i == k-1) ans = prev;
+                }
+            }
+            count++;
+        }
+
+        return ans;
+
+
+    }
+    private static void doSwap(Map<Integer, ListNode> nodeMap, int left, int right, ListNode nextToRight) {
+        while (left < right) {
+            //Put node at left index in temp
+            ListNode temp = nodeMap.get(left);
+            //Swap the nodes at left and right indexes
+            nodeMap.put(left, nodeMap.get(right));
+            nodeMap.put(right, temp);
+
+            //Update next node for current node at left index
+            nodeMap.get(left).next = nodeMap.get(left+1);
+
+            //Update next node to the left of the node at our left index
+            if(left - 1 >= 0) nodeMap.get(left -1).next = nodeMap.get(left);
+
+            //Update next node for current node at right index , if node at right index is the last, update next to null
+            if(right  + 1 < nodeMap.size()) nodeMap.get(right).next = nodeMap.get(right+1);
+            else nodeMap.get(right).next = nextToRight;
+            nodeMap.get(right - 1).next = nodeMap.get(right); //Update next node for node to the left of the node at our right index
+
+            //Increment left pointer and decrement right pointer
+            left++;
+            right--;
+        }
+    }
 
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
@@ -90,8 +170,9 @@ public class ReverseNodesInKGroup {
         head.next.next = new ListNode(3);
         head.next.next.next = new ListNode(4);
         head.next.next.next.next = new ListNode(5);
+        head.next.next.next.next.next = new ListNode(6);
 
-        ListNode newHead = new ReverseNodesInKGroup().reverseKGroup(head, 3);
+        ListNode newHead = new ReverseNodesInKGroup().reverseKGroupV2(head, 2);
         while (newHead != null) {
             System.out.print(newHead.val + ", ");
             newHead = newHead.next;
