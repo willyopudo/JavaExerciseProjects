@@ -1,4 +1,4 @@
-package com.demos.leetcode;
+package com.demos.leetcode.dp1;
 
 public class HouseRobber {
     public int rob(int[] nums) {
