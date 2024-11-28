@@ -61,6 +61,13 @@ public class Driver {
         root.right.right.left = new TreeNode(5);
 
         BinaryTreeInOrderTraversal bt = new BinaryTreeInOrderTraversal();
-        System.out.println(bt.inorderTraversal(root));
+        //System.out.println(bt.inorderTraversal(root));
+        System.out.println(new Driver().fibonacci(10));
+
+    }
+    public int fibonacci(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        return n + fibonacci(n - 1);
     }
 }
