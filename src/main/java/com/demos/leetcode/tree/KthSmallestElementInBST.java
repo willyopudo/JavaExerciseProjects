@@ -1,4 +1,4 @@
-package com.demos.leetcode;
+package com.demos.leetcode.tree;
 
 import java.util.*;
 

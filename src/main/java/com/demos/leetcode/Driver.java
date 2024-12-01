@@ -1,6 +1,7 @@
 package com.demos.leetcode;
 
-import com.demos.collections.Node;
+import com.demos.leetcode.tree.BinaryTreeInOrderTraversal;
+import com.demos.leetcode.tree.TreeNode;
 
 public class Driver {
     public static void main(String[] args) {
@@ -54,11 +55,11 @@ public class Driver {
 
         //ContainerWithMostWater container = new ContainerWithMostWater();
         //System.out.println(container.maxArea(new int[]{1,3,3,4}));
-        TreeNode root = new TreeNode(3);
-        root.right = new TreeNode(2);
-        root.right.left = new TreeNode(1);
-        root.right.right = new TreeNode(4);
-        root.right.right.left = new TreeNode(5);
+        //TreeNode root = new TreeNode(3);
+        //root.right = new TreeNode(2);
+        //root.right.left = new TreeNode(1);
+        //root.right.right = new TreeNode(4);
+        //root.right.right.left = new TreeNode(5);
 
         BinaryTreeInOrderTraversal bt = new BinaryTreeInOrderTraversal();
         //System.out.println(bt.inorderTraversal(root));
