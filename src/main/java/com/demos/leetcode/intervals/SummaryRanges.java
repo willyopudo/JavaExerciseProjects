@@ -6,35 +6,44 @@ import java.util.List;
 public class SummaryRanges {
     //Solution 1 : Brute force approach using for loop O(N)
     public List<String> summaryRanges(int[] nums) {
-        if(nums == null || nums.length == 0) return new ArrayList<>();
-        List<String> result = new ArrayList<>();
-        if(nums.length == 1) {result.add(nums[0] + ""); return result;}
-        int prev = 0;
-        int count = 1;
-        int curr = nums[0];
+//        int n = nums.length;
+//        if(n == 0) return new ArrayList<>();
+//        List<String> result = new ArrayList<>();
+//        if(nums.length == 1) {result.add(nums[0] + ""); return result;}
+//
+//        int rangeStart = 0;
+//        for (int i = 0; i < n; i++) {
+//            if (i == n - 1 || nums[i] + 1 != nums[i + 1]) {
+//                if(i == n -1) result.add( (rangeStart == i) ? nums[rangeStart] + "" : nums[rangeStart] + "->" + nums[i]);
+//                else result.add( (i - rangeStart == 0) ? nums[rangeStart] + "" : nums[rangeStart] + "->" + nums[i]);
+//                rangeStart = i + 1;
+//            }
+//        }
+//        return result;
 
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] - nums[prev] == 1) {
-                count++;
+        //Best solution using while loop. Runs in 0ms
+        List<String> list = new ArrayList<>() ;
+        int n = nums.length ;
+        for(int i=0 ; i<n ;++i){
+            StringBuilder rs = new StringBuilder() ;
+            rs.append( nums[i] ) ;
+            boolean flag = false ;
+            int last = -1 ;
+            while( i+1 < n && nums[i+1] == nums[i]+1 ){
+                ++i ;
+                flag = true ;
+                last = nums[i] ;
             }
-            else{
-                if(count == 1) result.add(curr + "");
-                else result.add(curr + "->" + nums[prev]);
-                curr = nums[i];
-                count = 1;
+            if( flag ){
+                rs.append( "->" ) ;
+                rs.append(last) ;
             }
-            if(i == nums.length - 1) {
-                if(nums[i] - nums[prev] == 1) {
-                    result.add(curr + "->" + nums[i]);
-                }
-                else result.add(nums[i] + "");
-            }
-            prev = i;
+            list.add( rs.toString() ) ;
         }
-        return result;
+        return list ;
     }
     public static void main(String[] args) {
         SummaryRanges s = new SummaryRanges();
-        System.out.println(s.summaryRanges(new int[]{0,1,2,4,5,7}));
+        System.out.println(s.summaryRanges(new int[]{-3,-2,2}));
     }
 }
