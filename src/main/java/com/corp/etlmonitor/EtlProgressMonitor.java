@@ -1,4 +1,4 @@
-package com.kcb.etlmonitor;
+package com.corp.etlmonitor;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
@@ -33,7 +33,7 @@ public class EtlProgressMonitor {
     // API endpoint
     private static final String API_URL = readConfigValue("sms.gateway.url"); // Replace with your API endpoint
 
-    private static final String CONFIG_FILE_PATH = "C:\\Users\\ken206312\\IdeaProjects\\JavaExerciseProjects\\src\\main\\java\\com\\kcb\\etlmonitor\\config.properties"; //Replace with your properties file path
+    private static final String CONFIG_FILE_PATH = "/Path/to/config.properties"; //Replace with your properties file path
 
     private static final Logger logger = Logger.getLogger(EtlProgressMonitor.class.getName());
 
