@@ -81,7 +81,7 @@ public class EtlProgressMonitor {
             //logMessage("Connected to the database.", Level.INFO);
 
             // Query the Oracle table
-            String query = "SELECT COUNT(*) AS total_count, nvl(LAST_RUN_STATUS, 'NULL') AS last_run_status FROM STAGING.EC_MASTER_REPORTS GROUP BY LAST_RUN_STATUS"; // Replace with your query
+            String query = "SELECT COUNT(*) AS total_count, nvl(LAST_RUN_STATUS, 'NULL') AS last_run_status FROM SCHEMA.TABLE_NAME GROUP BY LAST_RUN_STATUS"; // Replace with your query
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 //statement.setString(1, "some_value"); // Replace with your condition value
 
@@ -190,7 +190,7 @@ public class EtlProgressMonitor {
             HttpResponse<String> response;
             try (HttpClient client = HttpClient.newBuilder().sslContext(sslContext).build()) {
 
-                String jsonReq = "{\"from\":\"KCB M-PESA\", \"to\":\"" + recipient + "\", \"message\":\"" + messageData + "\"}";
+                String jsonReq = "{\"from\":\"SMS SENDER\", \"to\":\"" + recipient + "\", \"message\":\"" + messageData + "\"}";
 
                 // Create the HTTP request
                 HttpRequest request = HttpRequest.newBuilder()
