@@ -1,4 +1,4 @@
-package com.kcb.etlmonitor;
+package com.corp.etlmonitor;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

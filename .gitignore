@@ -29,5 +29,5 @@ bin/
 .DS_Store
 /target/
 
-/src/main/java/com/kcb/etlmonitor/config.properties
-/src/main/java/com/kcb/etlmonitor/contacts.txt
+/src/main/java/com/corp/etlmonitor/config.properties
+/src/main/java/com/corp/etlmonitor/contacts.txt
