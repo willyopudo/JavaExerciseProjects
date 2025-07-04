@@ -44,14 +44,25 @@ public class MajorityElement {
             //Increment right
             right++;
         }
-
-//        for (int num : nums) {
-//            map.compute(num, (k, num2) -> num2 != null ? num2 + 1 : 1);
-//            if (map.get(num) > mid) {
-//                return num;
-//            }
-//        }
         return nums[0];
+        /* Faster solution
+        Iterate and if current number is same as previous, increment majority variable by 1, otherwise decrement by 1
+        If we decrement until we reach zero, we know current res is not the majority so we set res to current number in iteration.
+
+        int res = 0;
+        int majority = 0;
+
+        for (int n : nums) {
+            if (majority == 0) {
+                res = n;
+            }
+
+            majority += n == res ? 1 : -1;
+        }
+
+        return res;
+
+         */
     }
     public static void main(String[] args) {
         MajorityElement majorityElement = new MajorityElement();
